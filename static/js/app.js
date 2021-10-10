@@ -27,30 +27,42 @@ function init() {
         // Creating variable for Samples Array
         var item = data.samples
         
+
         // Sort the data by sample values -  descending
         let sorted= item.sort((a, b) => b.sample_values - a.sample_values);
 
         // Filtering Sorted data to keep id equal to drop down selection
-        let subject = sorted.filter((val) => val.id == selectedID);
+        var subject = sorted.filter((val) => val.id == selectedID);
 
         // Slice the first 10 objects for plotting
-        let slicedData = sorted.slice(0, 10);
+        for (var key in subject) {
+            if (subject.hasOwnProperty(key)) {
+              var samp = subject[key].sample_values.slice(0,10);
+              var ids = subject[key].otu_ids.slice(0,10);
+              var labels = subject[key].otu_labels.slice(0,10);
+            }
+            };
 
 
         // Reverse the array to accommodate Plotly's defaults
-        let reversedData = slicedData.reverse();
+        var reversedSamp = samp.reverse();
+        var reversedIds = ids.reverse();
+        reversedIds = reversedIds.map(i => 'OTU ' + i);
+        var reversedLabels = labels.reverse();
+
+        
 
         // Logging to console to check values
-        console.log("Sorted: ", sorted);
-        console.log("Subject: ", subject);
-        console.log("Sliced Data: ", slicedData);
-        console.log("Reversed Data: ", reversedData);
+        // console.log("Sorted: ", sorted);
+        // console.log("Subject: ", subject);
+        // console.log("Sliced Data: ", samp, ids, labels);
+        // console.log("Reversed Data: ", reversedSamp, reversedIds, reversedLabels);
 
         // Trace1 for the Sample Data
         let trace1 = {
-            x: reversedData.map(object => object.sample_values),
-            y: reversedData.map(object => object.otu_ids),
-            text: reversedData.map(object => object.otu_labels),
+            x: reversedSamp,
+            y: reversedIds,
+            text: reversedLabels,
             type: "bar",
             orientation: "h"
         };
@@ -71,32 +83,4 @@ function init() {
 
 init();
 
-// // Fetch the JSON data and console log it
-// let data = d3.json(belly_button).then(function(data) {
-//     console.log(data);
-
-//     var metadata = data.metadata;
-//     var names = data.names;
-//     var samples = data.samples;   
-
-//       function init() {
-//     data = [{
-//       x: [1, 2, 3, 4, 5],
-//       y: [1, 2, 4, 8, 16] }];
-  
-//     Plotly.newPlot("plot", data);
-//   }
-//   var data1 = [{
-//     type: 'bar',
-//     x: samples.sample_values,
-//     y: samples.otu_ids,
-//     orientation: 'h'}];
-
-// Plotly.newPlot('bar', data1);
-
-// console.log("Samples: ", data.samples);
-// console.log("Names: ", data.names);
-// console.log("Metadata: ", data.metadata);
-
-//   });
 
