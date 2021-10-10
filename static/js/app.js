@@ -15,43 +15,53 @@ function init() {
 
         ///////////// Drop Down Menu /////////////
 
-        
-        d3.select("selDataset").on("change", getData);
 
   
         // Initial selection for Drop Down Menu - Not compvared to take in value
         var selectedID = "940";
 
-        let dataNames = data.names;
-        console.log("Test: ", dataNames[3])
+        var dataNames = data.names;
+        var dropdownMenu = d3.select("#selDataset").on("change", optionChanged);
+
+        // console.log("Test: ", dataNames[3])
+
+        dataNames.forEach(function(obj) {
+            dropdownMenu.append("option").text(obj).property("value", obj); });
 
         // Function called by DOM changes
-        function getData() {
-            var dropdownMenu = d3.select("#selDataset");
+        function optionChanged() {
+            dropdownMenu = d3.select("selDataset");
             // Assign the value of the dropdown menu option to a variable
             var dataset = dropdownMenu.property("value");
 
-            let dataNames = data.names;
+            // selectedID = dataset
+            // let dataNames = data.names;
 
+            // function optionChanged(dataset) {
+            //    selectedID = dataset 
+            // };
+
+            document.getElementById("selDataset").onChange = function(){
+                var value = document.getElementById("selDataset").value;
+                selectedID = value
+             };
             
-            dataNames.forEach(function(obj) {dropDownMenu.append("option").text(obj).property("value")} );
+            selectedID = dataset;
 
-            console.log("Test: ", dataNames)
-        
-            for (var key3 in dataNames) {
-                if (dataNames.hasOwnProperty(key3)) {
-                    test = dataset
-                }
-                };
+            console.log("Test: ", selectedID)
+            // for (var key3 in dataNames) {
+            //     if (dataNames.hasOwnProperty(key3)) {
+            //         test = dataset
+            //     }
+            //     };
 
-            for (let j = 0; j < students.length; j++) {
-                console.log(students[j]);
-                  }
+            // for (let j = 0; j < students.length; j++) {
+            //     console.log(students[j]);
+            //       }
 
-            
 
-            return selectedID = test.map(i => i=dataset);
-        }
+            // return selectedID
+        };
 
         
             
@@ -74,7 +84,7 @@ function init() {
             };
 
         // Removing all data in metadata box before printing new data
-        d3.select("sample-metadata").selectAll("div").remove();
+        d3.select("#sample-metadata").selectAll("div").remove();
 
         // // Cereating a list of object in the User MetaData
         // var m_keys = Object.entries(demo[1]);
@@ -82,7 +92,7 @@ function init() {
         // console.log("Test: ", m_keys)
 
         // Selecting MetaData HTML for data input
-        d3.select("sample-metadata");
+        d3.select("#sample-metadata");
 
         
         document.getElementById("sample-metadata").innerHTML = [
