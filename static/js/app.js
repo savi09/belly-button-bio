@@ -15,16 +15,46 @@ function init() {
 
         ///////////// Drop Down Menu /////////////
 
-        var dataNames = data.names;
-        var dropDownMenu = d3.select("#selDataset");
+        
+        d3.select("selDataset").on("change", getData);
+
   
-        dataNames.forEach(function (name) {
-            dropDownMenu.append("option").text(name).property("value", name);
-        });
-
-
-        // Selection from Drop Down Menu - Not compvared to take in value
+        // Initial selection for Drop Down Menu - Not compvared to take in value
         var selectedID = "940";
+
+        let dataNames = data.names;
+        console.log("Test: ", dataNames[3])
+
+        // Function called by DOM changes
+        function getData() {
+            var dropdownMenu = d3.select("#selDataset");
+            // Assign the value of the dropdown menu option to a variable
+            var dataset = dropdownMenu.property("value");
+
+            let dataNames = data.names;
+
+            
+            dataNames.forEach(function(obj) {dropDownMenu.append("option").text(obj).property("value")} );
+
+            console.log("Test: ", dataNames)
+        
+            for (var key3 in dataNames) {
+                if (dataNames.hasOwnProperty(key3)) {
+                    test = dataset
+                }
+                };
+
+            for (let j = 0; j < students.length; j++) {
+                console.log(students[j]);
+                  }
+
+            
+
+            return selectedID = test.map(i => i=dataset);
+        }
+
+        
+            
 
         //////////// Demographic Info /////////////
 
@@ -134,7 +164,7 @@ function init() {
 
         // Logging to console to check values
         // console.log("Sorted: ", sorted);
-        console.log("Subject: ", subject);
+        // console.log("Subject: ", subject);
         // console.log("Sliced Data: ", samp, ids, labels);
         // console.log("Reversed Data: ", reversedSamp, reversedIds, reversedLabels);
 
