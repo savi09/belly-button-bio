@@ -8,14 +8,14 @@ function init() {
         console.log(belly_but_data);
         
         // Creating variable for the data
-        let data = belly_but_data
+        var data = belly_but_data
 
         ///////////////////////////////////////////
 
 
         ///////////// Drop Down Menu /////////////
 
-        let dataNames = data.names;
+        var dataNames = data.names;
         var dropDownMenu = d3.select("#selDataset");
   
         dataNames.forEach(function (name) {
@@ -23,30 +23,77 @@ function init() {
         });
 
 
-        // Selection from Drop Down Menu - Not completed to take in value
-        let selectedID = "940";
+        // Selection from Drop Down Menu - Not compvared to take in value
+        var selectedID = "940";
 
         //////////// Demographic Info /////////////
-
-        document.getElementById("sample-metadata").text = demoID;
 
         var item1 = data.metadata
         var demo = item1.filter((val) => val.id == selectedID)
 
-        for (var key in demo) {
-            if (demo.hasOwnProperty(key)) {
-            var demoID = demo[key].id;
-            var demoEthn = demo[key].ethnicity
-            var demoGen = demo[key].gender
-            var demoAge = demo[key].age
-            var demoLoc = demo[key].location
-            var demoBB = demo[key].bbtype
-            var demoWfreq = demo[key].wfreq
+        for (var key2 in demo) {
+            if (demo.hasOwnProperty(key2)) {
+            var demoID = demo[key2].id;
+            var demoEthn = demo[key2].ethnicity
+            var demoGen = demo[key2].gender
+            var demoAge = demo[key2].age
+            var demoLoc = demo[key2].location
+            var demoBB = demo[key2].bbtype
+            var demoWfreq = demo[key2].wfreq
             }
             };
 
+        // Removing all data in metadata box before printing new data
+        d3.select("sample-metadata").selectAll("div").remove();
 
-        console.log("Test: ", demoID)
+        // // Cereating a list of object in the User MetaData
+        // var m_keys = Object.entries(demo[1]);
+
+        // console.log("Test: ", m_keys)
+
+        // Selecting MetaData HTML for data input
+        d3.select("sample-metadata");
+
+        
+        document.getElementById("sample-metadata").innerHTML = [
+        `<table>
+        <tbody>
+        <tr> <td> id: ${demoID} </td> </tr>, 
+        <tr> <td> ethnicity: ${demoEthn} </td> </tr>, 
+        <tr> <td> gender: ${demoGen} </td> </tr>, 
+        <tr> <td> age: ${demoAge} </td> </tr>, 
+        <tr> <td> location: ${demoLoc} </td> </tr>, 
+        <tr> <td> bbtype: ${demoBB} </td> </tr>, 
+        <tr> <td> wfreq: ${demoWfreq} </td> </tr>
+        </tbody>
+        </table>`]
+
+        // var table = d3.select('table')
+        // table.attr("sample-metadata", "table table-striped");
+        // var tbody = d3.select("tbody");
+        // var row = tbody.append('tr')
+        // row.append('td').text(`id: ${demoID}`)
+        // var row2 = tbody.append('tr')
+        // row2.append('td').text(`ethnicity: ${demoEthn}`)
+        // var row3 = tbody.append('tr')
+        // row3.append('td').text(`gender: ${demoGen}`)
+        // var row4 = tbody.append('tr')
+        // row4.append('td').text(`age: ${demoAge}`)
+        // var row5 = tbody.append('tr')
+        // row5.append('td').text(`location: ${demoLoc}`)
+        // var row6 = tbody.append('tr')
+        // row6.append('td').text(`bbtype: ${demoBB}`)
+        // var row7 = tbody.append('tr')
+        // row7.append('td').text(`wfreq: ${demoWfreq}`)
+
+
+        // // Creating loop to input data in Demographic Info
+        // m_keys.forEach(function(key, value){
+        //     console.log("Test: ", key, value)
+        //     meta_data.append("div").text(`${key[1]}: ${value[1]}`)
+        // });
+
+        // console.log("Test: ", table)
 
         ////////// Horizontal Bar Chart //////////
 
@@ -56,7 +103,7 @@ function init() {
             
 
         // Sort the data by sample values -  descending
-        let sorted= item.sort((a, b) => b.sample_values - a.sample_values);
+        var sorted= item.sort((a, b) => b.sample_values - a.sample_values);
 
         // datapull(selectedID);
 
@@ -92,7 +139,7 @@ function init() {
         // console.log("Reversed Data: ", reversedSamp, reversedIds, reversedLabels);
 
         // Trace1 for the Sample Data
-        let trace1 = {
+        var trace1 = {
             x: reversedSamp,
             y: reversedIds,
             text: reversedLabels,
@@ -101,7 +148,7 @@ function init() {
                     };
             
         // Setting variable to plot
-        let traceData = [trace1];
+        var traceData = [trace1];
             
             
         // Render the plot to the div tag with id "plot"
@@ -139,7 +186,7 @@ function init() {
             }
           };
           
-          let traceData2 = [trace2];
+          var traceData2 = [trace2];
           
         var layout ={
             xaxis: {
